@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Request
+from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 from .database import engine
@@ -12,6 +13,8 @@ app = FastAPI()
 Base.metadata.create_all(bind=engine)
 
 templates = Jinja2Templates(directory="ToDoApp/templates")
+
+app.mount("/static", StaticFiles(directory="ToDoApp/static"), name="static")
 
 #test endpoint
 @app.get("/")
